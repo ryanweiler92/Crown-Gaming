@@ -3,6 +3,7 @@ import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { searchGames } from '../utils/API'
 import {mostPopularGames2022} from '../utils/API'
 import SingleDeal from './SingleDeal'
+import Display20 from '../components/Display20.js'
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -105,30 +106,8 @@ const Home = () => {
 
         <Button className="btn-success" onClick={myFunction}>BUTTON MAN</Button>
 
-        <Container>
-            <CardColumns>
-                {searchedGames.map((game) => {
-                    return (
-                        <Card key={game.gameID} border='dark'>
-                            {game.picture ? (
-                                <Card.Img src={game.picture} />
-                            ) : null}
-                            <Card.Body>
-                                <Card.Title>{game.name}</Card.Title>
-                                <p className='small'>Price: {game.price}</p>
-                                <Link to={{
-                                    pathname: "/deal", 
-                                    state: {id: game.cheapestDealID,
-                                            }
-                                    }}>
-                                    <button value={game.gameID}>View This Deal</button>
-                                </Link>
-                            </Card.Body>
-                            )
-                        </Card>
-                    )
-                })}
-            </CardColumns>
+        <Container className="mx-auto mt-4">
+            <Display20 gameData={gameData} />
         </Container>
         </>
     )
