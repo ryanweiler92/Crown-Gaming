@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import { searchGames } from '../utils/API'
+import {mostPopularGames2022} from '../utils/API'
 import SingleDeal from './SingleDeal'
 import { Link } from 'react-router-dom';
 
@@ -11,7 +12,40 @@ const Home = () => {
 
     //form search
     const [searchInput, setSearchInput] = useState('');
+
+    const [gameData, setGameData] = useState([]);
+
+    useEffect(() => {
+        const popular2022fetch = async () => {
+            try {
+                const response = await mostPopularGames2022();
+                if (!response.ok) {
+                    throw new Error('something went wrong!');
+                }
+                const items  = await response.json()
+                console.log(items)
+                const gameData = items.results.map((game) => ({
+                    name: game.name,
+                    released: game.released,
+                    image: game.background_image,
+                    id: game.id,
+                    metacritic: game.metacritic,
+                    saturated_color: game.saturated_color,
+                    parentPlatforms: game.parent_platforms
+                }))
+                setGameData(gameData)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+    popular2022fetch();
+    }, [])
     
+
+    const myFunction = () => {
+        console.log(gameData)
+    }
 
 
     //Getting the game data when the form submits
@@ -68,6 +102,8 @@ const Home = () => {
                 </Form.Row>
             </Form>
         </Container>
+
+        <Button className="btn-success" onClick={myFunction}>BUTTON MAN</Button>
 
         <Container>
             <CardColumns>

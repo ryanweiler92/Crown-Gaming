@@ -7,10 +7,10 @@ const SingleDeal = (props) => {
     //get the passed dealID from home which was passed as state
     let data = useLocation();
 
-    console.log(data.state)
+    
     //state for setting the dealID passed from home page
     const [dealID, setDealID] = useState("")
-    console.log("UHH " + dealID)
+    
     //state for setting the deal data from the fetch call
     const [deal, setDeal] = useState([]);
 
