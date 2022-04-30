@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
 import {mostPopularGames2022} from '../utils/API'
 import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
@@ -7,9 +7,6 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     
-    //state for game searched from form
-    const [searchedGames, setSearchedGames] = useState([]);
-
 
     const [gameData, setGameData] = useState([]);
 
@@ -38,7 +35,6 @@ const Home = () => {
                 console.error(err)
             }
         }
-
     popular2022fetch();
     }, [])
     
@@ -55,7 +51,20 @@ const Home = () => {
         <Container className="mx-auto mt-4">
             <Row>
                 <Col>
-                <h1 className="text-center cool-gradient">Popular Games of 2022</h1>
+                <h1 className="text-center cool-white">Popular Games of {year}</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="d-flex justify-content-center">
+                    <DropdownButton title="Search by Year">
+                        <Dropdown.Item value="2021-01-01,2021-12-31">2021</Dropdown.Item>
+                        <Dropdown.Item value="2020-01-01,2020-12-31">2020</Dropdown.Item>
+                        <Dropdown.Item value="2019-01-01,2019-12-31">2019</Dropdown.Item>
+                        <Dropdown.Item value="2018-01-01,2018-12-31">2018</Dropdown.Item>
+                        <Dropdown.Item value="2017-01-01,2017-12-31">2017</Dropdown.Item>
+                        <Dropdown.Item value="2016-01-01,2016-12-31">2016</Dropdown.Item>
+                        <Dropdown.Item value="2015-01-01,2015-12-31">2015</Dropdown.Item>
+                    </DropdownButton>
                 </Col>
             </Row>
             <Display20 gameData={gameData} />
