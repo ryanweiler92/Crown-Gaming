@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
-
+import { Link } from 'react-router-dom';
 export default function Dispaly20(props){
     console.log(props)
+
+
     return (
     <Row>
         {props.gameData?.map((game) => {
@@ -30,7 +32,15 @@ export default function Dispaly20(props){
                         <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>
                     </ul>
                     <Row className="d-flex align-items-center justify-content-center">
-                    <button className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
+                    <Link 
+                    to={{
+                        pathname: "/game",
+                        state: { gameID: game.id,
+                                screenshots: game.short_screenshots}
+                    }}
+                    >
+                    <button as={Link} to='/game' className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
+                    </Link>
                     </Row>
                 </Card.Body>
             </Card>

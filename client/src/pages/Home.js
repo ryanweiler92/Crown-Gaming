@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
-import { searchGames } from '../utils/API'
 import {mostPopularGames2022} from '../utils/API'
-import SingleDeal from './SingleDeal'
+import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
 import { Link } from 'react-router-dom';
 
@@ -50,37 +49,37 @@ const Home = () => {
 
 
     //Getting the game data when the form submits
-    const handleFormSubmit = async (event) => {
-        event.preventDefault();
+    // const handleFormSubmit = async (event) => {
+    //     event.preventDefault();
 
-        if (!searchInput) {
-            return false;
-        }
+    //     if (!searchInput) {
+    //         return false;
+    //     }
 
-        try {
-            const response = await searchGames(searchInput)
+    //     try {
+    //         const response = await searchGames(searchInput)
 
-            if(!response.ok) {
-                throw new Error('something went wrong!')
-            }
+    //         if(!response.ok) {
+    //             throw new Error('something went wrong!')
+    //         }
 
-            const  items  = await response.json();
+    //         const  items  = await response.json();
 
-            console.log(items)
+    //         console.log(items)
 
-            const gameData = items.map((game) => ({
-                gameID: game.gameID,
-                cheapestDealID: game.cheapestDealID,
-                name: game.external,
-                price: game.cheapest,
-                picture: game.thumb
-            }))
-            setSearchedGames(gameData)
-            setSearchInput('');
-        } catch (err){
-            console.error(err)
-        }
-    };
+    //         const gameData = items.map((game) => ({
+    //             gameID: game.gameID,
+    //             cheapestDealID: game.cheapestDealID,
+    //             name: game.external,
+    //             price: game.cheapest,
+    //             picture: game.thumb
+    //         }))
+    //         setSearchedGames(gameData)
+    //         setSearchInput('');
+    //     } catch (err){
+    //         console.error(err)
+    //     }
+    // };
 
 
 
@@ -88,7 +87,7 @@ const Home = () => {
         <>
         <Container>
             <h1>Search for Games!</h1>
-            <Form onSubmit={handleFormSubmit}>
+            <Form >
                 <Form.Row>
                     <Col xs={12} md={8}>
                         <Form.Control

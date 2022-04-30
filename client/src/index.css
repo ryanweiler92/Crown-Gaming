@@ -66,6 +66,10 @@ body {
   text-decoration: underline;
 }
 
+.display20-img{
+  height: 125px;
+}
+
 .fa-lg {
   padding-left: 8px;
   padding-right: 8px;
