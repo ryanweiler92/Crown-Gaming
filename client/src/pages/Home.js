@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import {mostPopularGames2022} from '../utils/API'
 import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
@@ -10,10 +10,10 @@ const Home = () => {
     //state for game searched from form
     const [searchedGames, setSearchedGames] = useState([]);
 
-    //form search
-    const [searchInput, setSearchInput] = useState('');
 
     const [gameData, setGameData] = useState([]);
+
+    const [year, setYear] = useState("2022")
 
     useEffect(() => {
         const popular2022fetch = async () => {
@@ -47,65 +47,17 @@ const Home = () => {
         console.log(gameData)
     }
 
-
-    //Getting the game data when the form submits
-    // const handleFormSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     if (!searchInput) {
-    //         return false;
-    //     }
-
-    //     try {
-    //         const response = await searchGames(searchInput)
-
-    //         if(!response.ok) {
-    //             throw new Error('something went wrong!')
-    //         }
-
-    //         const  items  = await response.json();
-
-    //         console.log(items)
-
-    //         const gameData = items.map((game) => ({
-    //             gameID: game.gameID,
-    //             cheapestDealID: game.cheapestDealID,
-    //             name: game.external,
-    //             price: game.cheapest,
-    //             picture: game.thumb
-    //         }))
-    //         setSearchedGames(gameData)
-    //         setSearchInput('');
-    //     } catch (err){
-    //         console.error(err)
-    //     }
-    // };
-
-
-
     return (
         <>
-        <Container>
-            <h1>Search for Games!</h1>
-            <Form >
-                <Form.Row>
-                    <Col xs={12} md={8}>
-                        <Form.Control
-                         name='searchInput'
-                         value={searchInput}
-                         onChange={(e) => setSearchInput(e.target.value)}
-                         type='text'
-                         size='lg'
-                         placeholder='Search for a game'
-                        />
-                    </Col>
-                </Form.Row>
-            </Form>
-        </Container>
 
         <Button className="btn-success" onClick={myFunction}>BUTTON MAN</Button>
 
         <Container className="mx-auto mt-4">
+            <Row>
+                <Col>
+                <h1 className="text-center cool-gradient">Popular Games of 2022</h1>
+                </Col>
+            </Row>
             <Display20 gameData={gameData} />
         </Container>
         </>
