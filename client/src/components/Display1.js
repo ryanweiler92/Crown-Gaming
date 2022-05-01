@@ -88,7 +88,7 @@ export default function Display1(props){
                                 )
                             })}</p>
                         </Row>
-                        <Row>
+                        <Row className="row-height-adjust">
                         <p className="font-weight-bold pr-3">Metacritic Rating:</p>
                         <p>{!gameData.metacritic ? 'N/A' : 
                              gameData.metacritic > 80 ? <p className="good">{gameData.metacritic}</p> : 
@@ -98,6 +98,20 @@ export default function Display1(props){
                         <Row>
                             <p className="font-weight-bold pr-3">Average Playtime:</p>
                             <p>{!gameData.playtime ? 'N/A' : `${gameData.playtime} hours`}</p>
+                        </Row>
+                        <Row>
+                            <p className="font-weight-bold pr-3">Released:</p>
+                            <p>{!gameData.released ? 'N/A' : `${gameData.released}`}</p>
+                        </Row>
+                        <Row>
+                        <p className="font-weight-bold pr-3">Tags:</p>
+                        <p className="d1-tags">{gameData.tags?.slice(0, 3).map((tag, index) => {
+                            if(index == 2){
+                                return `${tag.name}`
+                            } else {
+                                return `${tag.name}, `
+                            }                         
+                         })} </p>
                         </Row>
                     </Col>
                 </Row>

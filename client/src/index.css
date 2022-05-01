@@ -191,20 +191,27 @@ body {
 }
 
 .good{
- 
   color:green !important;
   border: solid 1px rgba(250, 250, 250, 0.8);
-  padding: 1px 8px 1px 8px;
+  padding: 0px 8px 0px 8px;
 }
 
 .ok{
   color: yellow !important;
   border: solid 1px rgba(250, 250, 250, 0.8);
-  padding: 1px 8px 1px 8px;
+  padding: 0px 8px 0px 8px;
 }
 
 .bad{
   color: red !important;
   border: solid 1px rgba(250, 250, 250, 0.8);
-  padding: 1px 8px 1px 8px;
+  padding: 0px 8px 0px 8px;
+}
+
+.row-height-adjust{
+  max-height: 46px;
+}
+
+.d1-tags{
+  
 }
