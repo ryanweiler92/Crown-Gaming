@@ -144,3 +144,67 @@ body {
 .cool-white{
   color: rgba(250, 250, 250, 0.8);
 }
+
+.display1-carousel-img{
+  height: 400px !important;
+  width: 800px !important;
+}
+
+.display1-header h1{
+  padding-right: 10px;
+}
+
+.display1-header i {
+  color: rgba(250, 250, 250, 0.8);
+  font-size: 1.9em;
+}
+
+.display1-content-container{
+  overflow: hidden;
+  position: relative;
+}
+
+.display1-bg-img{
+  opacity: 0.2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+
+.display1-container .row{
+  position: relative
+}
+
+.d1-genre{
+  padding-right: 10px;
+}
+
+.d1-attributes{
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.display1-container{
+  color:rgba(250, 250, 250, 0.8)
+}
+
+.good{
+ 
+  color:green !important;
+  border: solid 1px rgba(250, 250, 250, 0.8);
+  padding: 1px 8px 1px 8px;
+}
+
+.ok{
+  color: yellow !important;
+  border: solid 1px rgba(250, 250, 250, 0.8);
+  padding: 1px 8px 1px 8px;
+}
+
+.bad{
+  color: red !important;
+  border: solid 1px rgba(250, 250, 250, 0.8);
+  padding: 1px 8px 1px 8px;
+}
