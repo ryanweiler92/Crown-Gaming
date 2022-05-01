@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useLocation} from "react-router-dom"
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import {getSingleGame} from '../utils/API'
+import Display1 from '../components/Display1.js'
 
 
 const SingleGame = (props) => {
@@ -12,11 +13,16 @@ const SingleGame = (props) => {
 
     const [gameData, setGameData] = useState([]);
 
+    //screenshots are not available in single game query for some reason
+    //bringing them over from the popular games query
+    const [screenshots, setScreenshots] = useState([]);
+
     useEffect(() => {
         if(!data.state){
             console.log('wrong')
         } else {
         setGameID(data.state.gameID)
+        setScreenshots(data.state.screenshots)
         }
     }, [])
 
@@ -28,21 +34,8 @@ const SingleGame = (props) => {
                 if (!response.ok) {
                     throw new Error('something went wrong!');
                 }
-                const items  = await response.json()
-                console.log(items)
-                const gameData = items.map((game) => ({
-                    name: game.name,
-                    released: game.released,
-                    image: game.background_image,
-                    id: game.id,
-                    metacritic: game.metacritic,
-                    metacriticUrl: game.metacritic_url,
-                    saturated_color: game.saturated_color,
-                    parentPlatforms: game.parent_platforms,
-                    playTime: game.playtime,
-                    genres: game.genres,
-                    description: game.description
-                }))
+                const gameData  = await response.json()
+                console.log(gameData)
                 setGameData(gameData)
             } catch (err) {
                 console.error(err)
@@ -66,6 +59,7 @@ const SingleGame = (props) => {
     return (
         <>
         <button onClick={myFunction}>Button Man</button>
+        <Display1 gameData={gameData} screenshots={screenshots} />
         </>
     )
 

@@ -29,7 +29,8 @@ const Home = () => {
                     id: game.id,
                     metacritic: game.metacritic,
                     saturated_color: game.saturated_color,
-                    parentPlatforms: game.parent_platforms
+                    parentPlatforms: game.parent_platforms,
+                    screenshots: game.short_screenshots
                 }))
                 setGameData(gameData)
             } catch (err) {
@@ -56,7 +57,8 @@ const Home = () => {
                 id: game.id,
                 metacritic: game.metacritic,
                 saturated_color: game.saturated_color,
-                parentPlatforms: game.parent_platforms
+                parentPlatforms: game.parent_platforms,
+                screenshots: game.short_screenshots
             }))
             setGameData(gameData)
         } catch (err) {

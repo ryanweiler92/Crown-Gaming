@@ -36,11 +36,17 @@ export default function Dispaly20(props){
                     to={{
                         pathname: "/game",
                         state: { gameID: game.id,
-                                screenshots: game.short_screenshots}
+                                screenshots: game.screenshots}
                     }}
                     >
                     <button as={Link} to='/game' className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
                     </Link>
+                    </Row>
+                    <Row className="d-flex align-items-center justify-content-center mt-2">
+                        <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>
+                    </Row>
+                    <Row className="d-flex align-items-center justify-content-center mt-2">
+                        <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                     </Row>
                 </Card.Body>
             </Card>
