@@ -5,6 +5,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import SingleGame from './pages/SingleGame'
 import Navigation from './components/Navigation'
+import igdb from 'igdb-api-node';
+
+const client2 = igdb('7zjdun2r8e3xekbh7czqxnto5daih5', '2xulatfe4e4t4wgphbuov3a7hheb86');
 
 const httpLink = createHttpLink({
   uri: '/graphql',

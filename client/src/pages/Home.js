@@ -4,14 +4,31 @@ import { mostPopularGames } from '../utils/API'
 import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
 import { Link } from 'react-router-dom';
+import apicalypse from 'apicalypse';
+import igdb from 'igdb-api-node';
+
+
+
 
 const Home = () => {
+
+    const client = igdb('7zjdun2r8e3xekbh7czqxnto5daih5', '2xulatfe4e4t4wgphbuov3a7hheb86');
     
     const [gameData, setGameData] = useState([]);
 
     const [year, setYear] = useState("2022")
 
-    const [yearSearchInput, setYearSearchInput] = useState("")
+    const newFetch = async () => {
+        try {
+            const response = await igdb()
+            .limit(50)
+            .request('/games')
+
+            console.log(response)
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     useEffect(() => {
         const popular2022fetch = async () => {
@@ -68,7 +85,7 @@ const Home = () => {
     }
 
     const myFunction = () => {
-        console.log(gameData)
+        newFetch()
     }
 
     return (
