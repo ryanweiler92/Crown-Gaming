@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Container, Nav, Navbar, Modal, Tab, Form, Col} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Auth from '../utils/auth'
+import  logo  from '../assets/images/logo.png'
 
 const Navigation = () => {
 
@@ -11,8 +12,12 @@ const Navigation = () => {
         <Navbar expand='lg'>
             <Container fluid>
                 <Navbar.Brand as={Link} to="/" className="cool-gradient" >
-                    Video Games
+                    <img 
+                    src={logo}
+                    />
                 </Navbar.Brand>
+
+                
                 <Navbar.Toggle aria-controls='navbar' />
                 <Navbar.Collapse id="navbar">
                 <Form action="" className="w-50 game-search-form">

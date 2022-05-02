@@ -54,6 +54,7 @@ export default function Display1(props){
                 })}
                 </Carousel>
             </Row>
+
             </Container>
             <Container className="display1-content-container mt-2">
             <img 
@@ -114,6 +115,13 @@ export default function Display1(props){
                          })} </p>
                         </Row>
                     </Col>
+                </Row>
+                <Row className="d-flex justify-content-around">
+                    <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>
+                    <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
+                </Row>
+                <Row>
+                    
                 </Row>
             </Container>
         </Container>
