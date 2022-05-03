@@ -127,7 +127,7 @@ export default function Display1(props){
                     <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                 </Row>
                 <Row className="d-flex justify-content-center mt-2">
-                    <h3>Available in the follow stores:</h3>
+                    <h3>Available in the following stores:</h3>
                 </Row>
                 <Row className="d-flex justify-content-center mt-2">
                          
