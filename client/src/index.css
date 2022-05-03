@@ -221,3 +221,23 @@ body {
 .store-list .list-group-item{
   background-color: #222
 }
+
+.modal-content{
+  background: var(--gradient) !important;
+  border: solid 3px black rounded;
+  color:rgba(250, 250, 250, 0.8)
+}
+
+.modal-title .nav .nav-item{
+  background:#222;
+  border: solid 2px black;
+  margin-right: 5px;
+}
+ .my-label{
+   font-size: 20px;
+ }
+
+ .my-form-control{
+   background: #222;
+ }
+

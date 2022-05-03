@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container } from 'react-bootstrap';
-import Auth from '../../utils/auth';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const LoginForm = () => {
 
@@ -36,24 +38,26 @@ const LoginForm = () => {
         <Container>
             <Form onSubmit={handleFormSubmit}>
                 <Form.Group>
-                    <Form.Label htmlFor='email'>Email</Form.Label>
+                    <Form.Label htmlFor='email' className="my-label">Email</Form.Label>
                     <Form.Control
                         type='email'
                         placeholder='Your email address'
                         name='email'
                         onChange={handleChange}
                         value={formState.email}
+                        className="my-form-control"
                         required
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label htmlFor='password'>Password</Form.Label>
+                    <Form.Label htmlFor='password' className="my-label">Password</Form.Label>
                     <Form.Control
                         type='password'
                         placeholder='Your password'
                         name='password'
                         onChange={handleChange}
                         value={formState.password}
+                        className="my-form-control"
                         required
                     />
                 </Form.Group>
