@@ -212,6 +212,12 @@ body {
   max-height: 46px;
 }
 
-.d1-tags{
-  
+.store-img{
+  height: 50px;
+  width: 50px;
+  margin-left: 15px;
+}
+
+.store-list .list-group-item{
+  background-color: #222
 }

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, Carousel, CardColumns} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import  steam  from '../assets/images/steam.png'
+import  gog  from '../assets/images/gog.png'
+import  epicGames  from '../assets/images/epic-games.png'
+import  playstationStore  from '../assets/images/playstation-store.png'
+import  xboxStore  from '../assets/images/xbox-store.png'
+import  nintendo  from '../assets/images/nintendo.png'
 
 export default function Display1(props){
 
@@ -120,8 +126,36 @@ export default function Display1(props){
                     <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>
                     <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                 </Row>
-                <Row>
-                    
+                <Row className="d-flex justify-content-center mt-2">
+                    <h3>Available in the follow stores:</h3>
+                </Row>
+                <Row className="d-flex justify-content-center mt-2">
+                         
+                             {gameData.stores?.map((store) => {
+                                 if (store.store.name === 'itch.io' || store.store.name === 'Google Play' ||
+                                  store.store.name === 'Xbox 360 Store' || store.store.name === 'App Store'){
+                                  return (null)} else return (
+                                    <Col className="d-flex justify-content-center">
+                                    <a href={`https://www.${store.store.domain}`} target="_blank">
+                                     <p>
+                                         {store.store.name}
+                                         <img 
+                                         className="store-img"
+                                         src={(store.store.name === 'Steam' ? steam : 
+                                         store.store.name === 'PlayStation Store' ? playstationStore : 
+                                         store.store.name === 'Xbox Store' ? xboxStore :
+                                         store.store.name === 'GOG' ? gog :
+                                         store.store.name === 'Nintendo Store' ?  nintendo :
+                                         store.store.name === 'Epic Games' ? epicGames :
+                                         null )}
+                                         />
+                                         </p>
+                                    </a>
+                                    </Col>
+                                  )
+                                 
+                             })}
+                         
                 </Row>
             </Container>
         </Container>
