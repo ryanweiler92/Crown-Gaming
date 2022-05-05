@@ -115,5 +115,31 @@ export const REMOVE_FAVORITE_GAME = gql`
       }
     }
   }
+`
 
+export const REMOVE_WISHLIST_GAME = gql`
+
+mutation removeWishListGame($id: Int!){
+  removeWishListGame(id: $id){
+    username
+    email
+    _id
+    wishListGames{
+          id
+          name
+          description
+          background_image
+          metacritic
+          playTime
+          released
+          genres
+          screenshots
+          tags
+          developers
+          platforms
+          stores
+          createdAt
+    }
+  }
+}
 `

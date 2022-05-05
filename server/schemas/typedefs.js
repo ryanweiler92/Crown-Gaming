@@ -74,6 +74,7 @@ type Mutation {
         createdAt: String
     ): User
     removeFavoriteGame( id: Int!): User
+    removeWishListGame( id: Int!): User
 }
 `
 

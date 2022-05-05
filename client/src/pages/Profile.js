@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {Container, Col, Row, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
 import ProfileCards from '../components/ProfileCards'
 import { useQuery, useMutation } from '@apollo/client';
-import { REMOVE_FAVORITE_GAME } from '../utils/mutations'
+import { REMOVE_FAVORITE_GAME, REMOVE_WISHLIST_GAME } from '../utils/mutations'
 import { GET_ME } from '../utils/queries'
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth'
@@ -14,26 +14,36 @@ const Profile = () => {
     const wishList = user?.wishListGames
     const favoriteGames = user?.favoriteGames
 
-    const [currentListName, setCurrentListName] = useState("Wish List")
+    const [currentListName, setCurrentListName] = useState("")
     const [currentList, setCurrentList] = useState(wishList)
 
     const [removeFavorite] = useMutation(REMOVE_FAVORITE_GAME);
+    const [removeWishlist] = useMutation(REMOVE_WISHLIST_GAME);
 
     useMemo(()=> {
         setCurrentList(wishList)
+        setCurrentListName("Wish List")
     }, [wishList])
+
+    useEffect(()=> {
+        setCurrentList(favoriteGames)
+        setCurrentListName("Favorite List")
+    }, [favoriteGames])
 
     const changeList = async (event) => {
         setCurrentListName(event);
 
         if(event === "Favorite List"){
             setCurrentList(favoriteGames)
+            setCurrentListName("Favorite List")
         } else {
+            setCurrentListName("Wish List")
             setCurrentList(wishList)
         }
     }
 
     const removeGame = async (id) => {
+        console.log(currentListName)
         if (currentListName === "Favorite List"){
             const token = Auth.loggedIn() ? Auth.getToken() : null;
             if (!token){
@@ -41,6 +51,21 @@ const Profile = () => {
             }
             try {
                 const response = await removeFavorite({
+                    variables: {id: id},
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    }
+                });
+            } catch (err) {
+                console.error(err)
+            }
+        } else {
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
+            if (!token){
+                return false
+            }
+            try {
+                const response = await removeWishlist({
                     variables: {id: id},
                     headers: {
                         authorization: `Bearer ${token}`

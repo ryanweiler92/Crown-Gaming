@@ -86,6 +86,18 @@ const resolvers = {
             }
             throw new AuthenticationError('Not logged in');
           },
+          removeWishListGame: async (parent, {id}, context) => {
+            if (context.user) {
+              const updatedUser = await User
+              .findOneAndUpdate(
+                {_id: context.user._id},
+                { $pull: {wishListGames: {id}}},
+                { new: true }
+              )
+              return updatedUser
+            }
+            throw new AuthenticationError('Not logged in');
+          },
     }
 }
 
