@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import {Container, Col, Row, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import ProfileCards from '../components/ProfileCards'
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_ME } from '../utils/queries'
 import { Link } from 'react-router-dom';
 
+const Profile = () => {
 
-export default function Dispaly20(props){
-    console.log(props)
+    const { data: userDataMe } = useQuery(GET_ME);
+    const user = userDataMe?.me
+    const wishList = user?.wishListGames
+    const favoriteGames = user?.favoriteGames
 
-
+    const myFunction = () => {
+        console.log(user)
+        console.log(wishList)
+        console.log(favoriteGames)
+    }
 
     return (
-    <Row>
-        {props.gameData?.map((game) => {
+        <>
+            <button onClick={myFunction}>Show Me GRAPHQL USER DATA</button>
+        <Container>
+            <Row>
+        {wishList?.map((game) => {
             return (
         <Col key={game.id} className="col-md-4 col-lg-3 col-xl-3 mt-4">
             <Card  className="single-deal-card h-100">
-                <img src={game.image} className="card-img-top display20-img" />
+                <img src={game.background_image} className="card-img-top display20-img" />
                 <Card.Body>
                     <Row>
                         <Col className="col-lg-12 mx-auto">
@@ -27,10 +40,10 @@ export default function Dispaly20(props){
                         </Col>
                     </Row>
                     <ul className="list-group list-group-flush">
-                        <li className="list-group-item text-center">{game.parentPlatforms?.map((platform) => {
-                        if(platform.platform.name === 'PlayStation') return (<i className="fa-brands fa-playstation fa-lg"></i>)
-                        else if (platform.platform.name === 'Xbox') return (<i className="fa-brands fa-xbox fa-lg"></i>)
-                        else if (platform.platform.name === 'Nintendo') return (<i className="fab fa-nintendo-switch fa-lg"></i>)  
+                        <li className="list-group-item text-center">{game.platforms?.map((platform) => {
+                        if(platform === 'PlayStation') return (<i className="fa-brands fa-playstation fa-lg"></i>)
+                        else if (platform === 'Xbox') return (<i className="fa-brands fa-xbox fa-lg"></i>)
+                        else if (platform === 'Nintendo') return (<i className="fab fa-nintendo-switch fa-lg"></i>)  
                         else return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
                         <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>
                     </ul>
@@ -57,5 +70,10 @@ export default function Dispaly20(props){
                     )
                 })}
     </Row>
+    </Container>
+        </>
     )
-}
+};
+
+
+export default Profile

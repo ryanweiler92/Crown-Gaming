@@ -6,6 +6,38 @@ query me {
       username
       email
       _id
+      wishListGames{
+        id
+        name
+        description
+        background_image
+        metacritic
+        playTime
+        released
+        genres
+        screenshots
+        tags
+        developers
+        platforms
+        stores
+        createdAt
+      }
+  favoriteGames{
+        id
+        name
+        description
+        background_image
+        metacritic
+        playTime
+        released
+        genres
+        screenshots
+        tags
+        developers
+        platforms
+        stores
+        createdAt
+      }
       }
     }
 `;

@@ -3,6 +3,7 @@ import {useLocation} from "react-router-dom"
 import {Container, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
 import {getSingleGame} from '../utils/API'
 import Display1 from '../components/Display1.js'
+ 
 
 
 const SingleGame = (props) => {
