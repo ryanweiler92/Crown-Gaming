@@ -7,12 +7,17 @@ import  epicGames  from '../assets/images/epic-games.png'
 import  playstationStore  from '../assets/images/playstation-store.png'
 import  xboxStore  from '../assets/images/xbox-store.png'
 import  nintendo  from '../assets/images/nintendo.png'
+import { useQuery, useMutation } from '@apollo/client';
+import { SAVE_WISH_LIST_GAME } from '../utils/mutations'
+import Auth from '../utils/auth'
 
 export default function Display1(props){
 
     const [gameData, setGameData] = useState([]);
 
     const [screenshots, setScreenshots] = useState([]);
+
+    const [saveWishList] = useMutation(SAVE_WISH_LIST_GAME)
 
     useEffect(() => {
         if(!props.gameData){
@@ -23,6 +28,56 @@ export default function Display1(props){
         }
     }, [props])
 
+    
+    const handleSaveWishList = async (gameData) => {
+
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        console.log(gameData)
+        console.log(token)
+
+        if (!token) {
+            return false
+        };
+
+
+        try {
+            const response = await saveWishList({
+                variables: {
+                    id: gameData.id,
+                    name: gameData.name,
+                    description: gameData.description_raw,
+                    background_image: gameData.background_image,
+                    metacritic: gameData.metacritic,
+                    playTime: gameData.playtime,
+                    released: gameData.released,
+                    genres: [...gameData.genres?.map((genre) => {
+                       return (genre.name)
+                    })],
+                    screenshots: [...screenshots?.map((screenshot) => {
+                        return (screenshot.image)
+                    })],
+                    tags: [...gameData.tags?.map((tag) => {
+                        return (tag.name)
+                    })],
+                    developers: [...gameData.developers?.map((developer) => {
+                        return (developer.name)
+                    })],
+                    platforms: [...gameData.parent_platforms?.map((platform) => {
+                        return (platform.platform.name)
+                    })],
+                    stores: [...gameData.stores?.map((store) => {
+                        return (store.store.name)
+                    })]
+                },
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
 
     const myFunction = () => {
@@ -97,10 +152,10 @@ export default function Display1(props){
                         </Row>
                         <Row className="row-height-adjust">
                         <p className="font-weight-bold pr-3">Metacritic Rating:</p>
-                        <p>{!gameData.metacritic ? 'N/A' : 
+                        {!gameData.metacritic ? 'N/A' : 
                              gameData.metacritic > 80 ? <p className="good">{gameData.metacritic}</p> : 
                              gameData.metacritic > 60 ? <p className="ok">{gameData.metacritic}</p> :
-                             <p className="bad">{gameData.metacritic}</p>}</p>
+                             <p className="bad">{gameData.metacritic}</p>}
                         </Row>
                         <Row>
                             <p className="font-weight-bold pr-3">Average Playtime:</p>
@@ -123,7 +178,7 @@ export default function Display1(props){
                     </Col>
                 </Row>
                 <Row className="d-flex justify-content-around">
-                    <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>
+                    <button className="view-game-btn" onClick={() => handleSaveWishList(gameData)}><i class="fa fa-list"></i> + Wishlist</button>
                     <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                 </Row>
                 <Row className="d-flex justify-content-center mt-2">
