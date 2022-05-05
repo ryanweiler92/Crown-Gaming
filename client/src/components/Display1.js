@@ -8,7 +8,7 @@ import  playstationStore  from '../assets/images/playstation-store.png'
 import  xboxStore  from '../assets/images/xbox-store.png'
 import  nintendo  from '../assets/images/nintendo.png'
 import { useQuery, useMutation } from '@apollo/client';
-import { SAVE_WISH_LIST_GAME } from '../utils/mutations'
+import { SAVE_WISH_LIST_GAME, SAVE_FAVORITE_GAME } from '../utils/mutations'
 import Auth from '../utils/auth'
 
 export default function Display1(props){
@@ -18,6 +18,8 @@ export default function Display1(props){
     const [screenshots, setScreenshots] = useState([]);
 
     const [saveWishList] = useMutation(SAVE_WISH_LIST_GAME)
+
+    const [saveFavoriteGame] = useMutation(SAVE_FAVORITE_GAME)
 
     useEffect(() => {
         if(!props.gameData){
@@ -43,6 +45,56 @@ export default function Display1(props){
 
         try {
             const response = await saveWishList({
+                variables: {
+                    id: gameData.id,
+                    name: gameData.name,
+                    description: gameData.description_raw,
+                    background_image: gameData.background_image,
+                    metacritic: gameData.metacritic,
+                    playTime: gameData.playtime,
+                    released: gameData.released,
+                    genres: [...gameData.genres?.map((genre) => {
+                       return (genre.name)
+                    })],
+                    screenshots: [...screenshots?.map((screenshot) => {
+                        return (screenshot.image)
+                    })],
+                    tags: [...gameData.tags?.map((tag) => {
+                        return (tag.name)
+                    })],
+                    developers: [...gameData.developers?.map((developer) => {
+                        return (developer.name)
+                    })],
+                    platforms: [...gameData.parent_platforms?.map((platform) => {
+                        return (platform.platform.name)
+                    })],
+                    stores: [...gameData.stores?.map((store) => {
+                        return (store.store.name)
+                    })]
+                },
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            });
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const handleSaveFavoriteGame = async (gameData) => {
+
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        console.log(gameData)
+        console.log(token)
+
+        if (!token) {
+            return false
+        };
+
+
+        try {
+            const response = await saveFavoriteGame({
                 variables: {
                     id: gameData.id,
                     name: gameData.name,
@@ -179,7 +231,7 @@ export default function Display1(props){
                 </Row>
                 <Row className="d-flex justify-content-around">
                     <button className="view-game-btn" onClick={() => handleSaveWishList(gameData)}><i class="fa fa-list"></i> + Wishlist</button>
-                    <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
+                    <button className="view-game-btn" onClick={() => handleSaveFavoriteGame(gameData)}><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                 </Row>
                 <Row className="d-flex justify-content-center mt-2">
                     <h3>Available in the following stores:</h3>

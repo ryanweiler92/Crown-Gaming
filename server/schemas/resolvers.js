@@ -57,6 +57,22 @@ const resolvers = {
                 return updatedUser
             }
             throw new AuthenticationError('You need to be logged in!')
+        },
+        saveFavoriteGameList: async (parent, {id, name, description, background_image, metacritic, playTime, released, genres, screenshots, tags, developers, platforms, stores, createdAt}, context) => {
+            if (context.user) {
+                
+                const updatedUser = await User
+                .findOneAndUpdate(
+                    {_id: context.user._id},
+                    {$addToSet: {favoriteGames: { id, name, description, background_image,
+                                                  metacritic, playTime, released, genres,
+                                                  screenshots, tags, developers, platforms,
+                                                  stores, createdAt} } },
+                    { new: true}
+                );
+                return updatedUser
+            }
+            throw new AuthenticationError('You need to be logged in!')
         }
     }
 }

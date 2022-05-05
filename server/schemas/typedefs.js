@@ -57,6 +57,22 @@ type Mutation {
         stores: [String]
         createdAt: String
     ): User
+    saveFavoriteGameList(
+        id: Int
+        name: String!
+        description: String
+        background_image: String
+        metacritic: Int
+        playTime: Int
+        released: String
+        genres: [String]
+        screenshots: [String]
+        tags: [String]
+        developers: [String]
+        platforms: [String]
+        stores: [String]
+        createdAt: String
+    ): User
 }
 `
 
