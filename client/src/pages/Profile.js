@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {Container, Col, Row, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import React, { useState, useEffect, useMemo } from 'react';
+import {Container, Col, Row, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
 import ProfileCards from '../components/ProfileCards'
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries'
@@ -12,18 +12,46 @@ const Profile = () => {
     const wishList = user?.wishListGames
     const favoriteGames = user?.favoriteGames
 
+    const [currentListName, setCurrentListName] = useState("Wish List")
+    const [currentList, setCurrentList] = useState(wishList)
+
+    useMemo(()=> {
+        setCurrentList(wishList)
+    }, [wishList])
+
+    const changeList = async (event) => {
+        setCurrentListName(event);
+
+        if(event === "Favorite List"){
+            setCurrentList(favoriteGames)
+        } else {
+            setCurrentList(wishList)
+        }
+    }
     const myFunction = () => {
         console.log(user)
         console.log(wishList)
-        console.log(favoriteGames)
+        console.log(currentList)
     }
 
     return (
         <>
             <button onClick={myFunction}>Show Me GRAPHQL USER DATA</button>
         <Container>
+            <Row className="d-flex justify-content-center">
+                <h2 className="text-center cool-white">Viewing {user?.username}'s {currentListName}</h2>
+            </Row>
+            <Row className="d-flex justify-content-center">
+                <DropdownButton title="Select List" onSelect={changeList}>
+                    <Dropdown.Item eventKey="Favorite List">Favorite List</Dropdown.Item>
+                    <Dropdown.Item eventKey="Wish List">Wish List</Dropdown.Item>
+                </DropdownButton>
+            </Row>
+        </Container>
+        <Container>
             <Row>
-        {wishList?.map((game) => {
+        
+        {currentList?.map((game) => {
             return (
         <Col key={game.id} className="col-md-4 col-lg-3 col-xl-3 mt-4">
             <Card  className="single-deal-card h-100">
@@ -44,7 +72,7 @@ const Profile = () => {
                         if(platform === 'PlayStation') return (<i className="fa-brands fa-playstation fa-lg"></i>)
                         else if (platform === 'Xbox') return (<i className="fa-brands fa-xbox fa-lg"></i>)
                         else if (platform === 'Nintendo') return (<i className="fab fa-nintendo-switch fa-lg"></i>)  
-                        else return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
+                        else if (platform === 'PC') return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
                         <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>
                     </ul>
                     <Row className="d-flex align-items-center justify-content-center">

@@ -31,7 +31,7 @@ export default function Dispaly20(props){
                         if(platform.platform.name === 'PlayStation') return (<i className="fa-brands fa-playstation fa-lg"></i>)
                         else if (platform.platform.name === 'Xbox') return (<i className="fa-brands fa-xbox fa-lg"></i>)
                         else if (platform.platform.name === 'Nintendo') return (<i className="fab fa-nintendo-switch fa-lg"></i>)  
-                        else return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
+                        else if (platform.platform.name === "PC") return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
                         <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>
                     </ul>
                     <Row className="d-flex align-items-center justify-content-center">
