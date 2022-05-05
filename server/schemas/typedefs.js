@@ -73,6 +73,7 @@ type Mutation {
         stores: [String]
         createdAt: String
     ): User
+    removeFavoriteGame( id: Int!): User
 }
 `
 

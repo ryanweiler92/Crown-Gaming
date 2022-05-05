@@ -89,3 +89,31 @@ mutation saveFavoriteGameList( $id: Int, $name: String!, $description: String, $
             }
         }
 `
+
+export const REMOVE_FAVORITE_GAME = gql`
+
+  mutation removeFavoriteGame($id: Int!){
+    removeFavoriteGame(id: $id){
+      username
+      email
+      _id
+      favoriteGames{
+            id
+            name
+            description
+            background_image
+            metacritic
+            playTime
+            released
+            genres
+            screenshots
+            tags
+            developers
+            platforms
+            stores
+            createdAt
+      }
+    }
+  }
+
+`

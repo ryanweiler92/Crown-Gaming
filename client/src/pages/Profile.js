@@ -2,8 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import {Container, Col, Row, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
 import ProfileCards from '../components/ProfileCards'
 import { useQuery, useMutation } from '@apollo/client';
+import { REMOVE_FAVORITE_GAME } from '../utils/mutations'
 import { GET_ME } from '../utils/queries'
 import { Link } from 'react-router-dom';
+import Auth from '../utils/auth'
 
 const Profile = () => {
 
@@ -14,6 +16,8 @@ const Profile = () => {
 
     const [currentListName, setCurrentListName] = useState("Wish List")
     const [currentList, setCurrentList] = useState(wishList)
+
+    const [removeFavorite] = useMutation(REMOVE_FAVORITE_GAME);
 
     useMemo(()=> {
         setCurrentList(wishList)
@@ -28,6 +32,28 @@ const Profile = () => {
             setCurrentList(wishList)
         }
     }
+
+    const removeGame = async (id) => {
+        if (currentListName === "Favorite List"){
+            const token = Auth.loggedIn() ? Auth.getToken() : null;
+            if (!token){
+                return false
+            }
+            try {
+                const response = await removeFavorite({
+                    variables: {id: id},
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    }
+                });
+            } catch (err) {
+                console.error(err)
+            }
+        }
+        
+    }
+
+
     const myFunction = () => {
         console.log(user)
         console.log(wishList)
@@ -83,8 +109,11 @@ const Profile = () => {
                                 screenshots: game.screenshots}
                     }}
                     >
-                    <button as={Link} to='/game' className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
+                        <button as={Link} to='/game' className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
                     </Link>
+                    </Row>
+                    <Row className="d-flex justify-content-center mt-3">
+                        <button onClick={() => removeGame(game.id)} className="view-game-btn">Remove Game</button>
                     </Row>
                     {/* <Row className="d-flex align-items-center justify-content-center mt-2">
                         <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>

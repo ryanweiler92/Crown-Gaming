@@ -73,7 +73,19 @@ const resolvers = {
                 return updatedUser
             }
             throw new AuthenticationError('You need to be logged in!')
-        }
+        },
+        removeFavoriteGame: async (parent, {id}, context) => {
+            if (context.user) {
+              const updatedUser = await User
+              .findOneAndUpdate(
+                {_id: context.user._id},
+                { $pull: {favoriteGames: {id}}},
+                { new: true }
+              )
+              return updatedUser
+            }
+            throw new AuthenticationError('Not logged in');
+          },
     }
 }
 
