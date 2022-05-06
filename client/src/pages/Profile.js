@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {Container, Col, Row, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
-import ProfileCards from '../components/ProfileCards'
 import { useQuery, useMutation } from '@apollo/client';
 import { REMOVE_FAVORITE_GAME, REMOVE_WISHLIST_GAME } from '../utils/mutations'
 import { GET_ME } from '../utils/queries'
@@ -78,18 +77,10 @@ const Profile = () => {
         
     }
 
-
-    const myFunction = () => {
-        console.log(user)
-        console.log(wishList)
-        console.log(currentList)
-    }
-
     return (
         <>
-            <button onClick={myFunction}>Show Me GRAPHQL USER DATA</button>
         <Container>
-            <Row className="d-flex justify-content-center">
+            <Row className="d-flex justify-content-center mt-3">
                 <h2 className="text-center cool-white">Viewing {user?.username}'s {currentListName}</h2>
             </Row>
             <Row className="d-flex justify-content-center">

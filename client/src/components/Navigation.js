@@ -5,7 +5,7 @@ import Auth from '../utils/auth.js'
 import logo from '../assets/images/logo.png'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
-
+import Controller from '../assets/images/controller.png'
 
 
 const Navigation = () => {
@@ -21,10 +21,9 @@ const Navigation = () => {
                     src={logo}
                     />
                 </Navbar.Brand>
-
                 
                 <Navbar.Toggle aria-controls='navbar' />
-                <Navbar.Collapse id="navbar">
+                <Navbar.Collapse id="navbar" className="col-4">
                 <Nav className="ml-auto">
                     {Auth.loggedIn() ? (
                     <>

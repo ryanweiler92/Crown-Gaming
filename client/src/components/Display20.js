@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns} from 'react-bootstrap'
+import React from 'react';
+import {Row, Col, Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 
-
 export default function Dispaly20(props){
-    console.log(props)
-
-
 
     return (
     <Row>
@@ -32,7 +28,8 @@ export default function Dispaly20(props){
                         else if (platform.platform.name === 'Xbox') return (<i className="fa-brands fa-xbox fa-lg"></i>)
                         else if (platform.platform.name === 'Nintendo') return (<i className="fab fa-nintendo-switch fa-lg"></i>)  
                         else if (platform.platform.name === "PC") return (<i className="fa-solid fa-desktop fa-lg"></i>)})} </li>
-                        <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>
+                        
+                        {!game.metacritic ? <li className="list-group-item">Metacritic Rating: N/A </li> : <li className="list-group-item">Metacritic Rating: {game.metacritic} </li>}
                     </ul>
                     <Row className="d-flex align-items-center justify-content-center">
                     <Link 
@@ -45,12 +42,6 @@ export default function Dispaly20(props){
                     <button as={Link} to='/game' className="view-game-btn"><i className="fa-solid fa-gamepad"></i> View Game</button>
                     </Link>
                     </Row>
-                    {/* <Row className="d-flex align-items-center justify-content-center mt-2">
-                        <button className="view-game-btn"><i class="fa fa-list"></i> + Wishlist</button>
-                    </Row>
-                    <Row className="d-flex align-items-center justify-content-center mt-2">
-                        <button className="view-game-btn"><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
-                    </Row> */}
                 </Card.Body>
             </Card>
         </Col>

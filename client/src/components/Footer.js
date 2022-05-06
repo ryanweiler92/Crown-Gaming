@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Popover, ListGroup, OverlayTrigger} from 'react-bootstrap';
+import React from 'react';
+import { Row, Col} from 'react-bootstrap';
 import github from '../assets/images/github.png'
 import logo from '../assets/images/logo.png'
 import linkedin from '../assets/images/linkedin.png'
@@ -19,10 +19,11 @@ const Footer = () => {
                     </a></p>
                 </Col>
                 <Col className="align-items-center text-center">
-                    <img 
+                    <a href="/"><img 
                         src={logo}
                         className="footer-logo"
                     />
+                    </a>
                 </Col>
                 <Col className="align-items-center text-center">
                     <p><a href="https://github.com/ryanweiler92/Video-Game-Deal-Finder" target="_blank">

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, Carousel, CardColumns} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import {Container, Row, Col, Carousel} from 'react-bootstrap'
 import  steam  from '../assets/images/steam.png'
 import  gog  from '../assets/images/gog.png'
 import  epicGames  from '../assets/images/epic-games.png'
 import  playstationStore  from '../assets/images/playstation-store.png'
 import  xboxStore  from '../assets/images/xbox-store.png'
 import  nintendo  from '../assets/images/nintendo.png'
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { SAVE_WISH_LIST_GAME, SAVE_FAVORITE_GAME } from '../utils/mutations'
 import Auth from '../utils/auth'
 
@@ -34,14 +33,9 @@ export default function Display1(props){
     const handleSaveWishList = async (gameData) => {
 
         const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-        console.log(gameData)
-        console.log(token)
-
         if (!token) {
             return false
         };
-
 
         try {
             const response = await saveWishList({
@@ -85,13 +79,9 @@ export default function Display1(props){
 
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-        console.log(gameData)
-        console.log(token)
-
         if (!token) {
             return false
         };
-
 
         try {
             const response = await saveFavoriteGame({
@@ -131,18 +121,8 @@ export default function Display1(props){
         }
     }
 
-
-    const myFunction = () => {
-        console.log(gameData)
-        console.log(screenshots)
-        console.log(gameData.parentPlatforms)
-    }
-
-
-
     return(
         <>
-        <button onClick={myFunction}>Dispaly 1Button Man</button>
         <Container className="display1-container">
             <Container className="display1-title-carousel-container">
             <Row className="d-flex align-items-center justify-content-center display1-header">
@@ -230,8 +210,8 @@ export default function Display1(props){
                     </Col>
                 </Row>
                 <Row className="d-flex justify-content-around">
-                    <button className="view-game-btn" onClick={() => handleSaveWishList(gameData)}><i class="fa fa-list"></i> + Wishlist</button>
-                    <button className="view-game-btn" onClick={() => handleSaveFavoriteGame(gameData)}><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
+                    <button className="view-game-btn single-game-view-btn" onClick={() => handleSaveWishList(gameData)}><i class="fa fa-list"></i> + Wishlist</button>
+                    <button className="view-game-btn single-game-view-btn" onClick={() => handleSaveFavoriteGame(gameData)}><i class="fa-solid fa-heart-circle-check"></i> Add Favorite</button>
                 </Row>
                 <Row className="d-flex justify-content-center mt-2">
                     <h3>Available in the following stores:</h3>

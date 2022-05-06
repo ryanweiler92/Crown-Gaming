@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Row, Col, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
+import {Container, Row, Col, Form, Dropdown, DropdownButton} from 'react-bootstrap'
 import { mostPopularGames, keywordSearch } from '../utils/API'
-import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
-import { Link } from 'react-router-dom';
+
 
 const Home = () => {
     
@@ -19,7 +18,6 @@ const Home = () => {
                     throw new Error('something went wrong!');
                 }
                 const items  = await response.json()
-                console.log(items)
                 const gameData = items.results.map((game) => ({
                     name: game.name,
                     released: game.released,
@@ -40,15 +38,12 @@ const Home = () => {
     
     const handleKeywordSearch = async (event) => {
         event.preventDefault();
-        console.log(event)
-
         try {
             const response = await keywordSearch(searchInput);
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
             const items  = await response.json()
-            console.log(items)
             const games = items.results.map((game) => ({
                 name: game.name,
                 released: game.released,
@@ -68,14 +63,12 @@ const Home = () => {
     }
 
     const handleYearSubmit = async (event) => {
-        console.log(event)
         try {
             const response = await mostPopularGames(event);
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
             const items  = await response.json()
-            console.log(items)
             const gameData = items.results.map((game) => ({
                 name: game.name,
                 released: game.released,
@@ -93,17 +86,12 @@ const Home = () => {
         setYear("Popular Games of " + event.substring(0, 4))
     }
 
-    const myFunction = () => {
-        console.log(gameData)
-    }
-
     return (
         <>
-        <Button className="btn-success" onClick={myFunction}>BUTTON MAN</Button>
         <Container className="mx-auto mt-4">
             <Row>
                 <Col>
-                    <Form onSubmit={handleKeywordSearch} className="w-50 game-search-form">
+                    <Form onSubmit={handleKeywordSearch} className="w-75 game-search-form">
                             <div class="p-1 bg-light rounded rounded-pill shadow-sm">
                                 <div class="input-group">
                                     <input type="search"
@@ -112,7 +100,7 @@ const Home = () => {
                                     onChange={(e) => setSearchInput(e.target.value)}
                                     placeholder="Search for games" 
                                     aria-describedby="button-addon1" 
-                                    className="form-control border-0" />
+                                    className="form-control border-0 my-control" />
                                     <div class="input-group-append">
                                         <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search cool-gradient"></i></button>
                                     </div>
@@ -133,7 +121,7 @@ const Home = () => {
                     </DropdownButton>
                 </Col>
             </Row>
-            <Row>
+            <Row className="mt-2">
                 <Col>
                 <h1 className="text-center cool-white"> {year}</h1>
                 </Col>
