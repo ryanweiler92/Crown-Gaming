@@ -142,7 +142,7 @@ export default function Display1(props){
 
     return(
         <>
-        <button onClick={myFunction}>Button Man</button>
+        <button onClick={myFunction}>Dispaly 1Button Man</button>
         <Container className="display1-container">
             <Container className="display1-title-carousel-container">
             <Row className="d-flex align-items-center justify-content-center display1-header">

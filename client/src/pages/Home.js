@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Container, Row, Col, Form, Button, Card, CardColumns, Dropdown, DropdownButton} from 'react-bootstrap'
-import { mostPopularGames } from '../utils/API'
+import { mostPopularGames, keywordSearch } from '../utils/API'
 import SingleGame from './SingleGame'
 import Display20 from '../components/Display20.js'
 import { Link } from 'react-router-dom';
@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     
     const [gameData, setGameData] = useState([]);
-
-    const [year, setYear] = useState("2022")
+    const [searchInput, setSearchInput] = useState('');
+    const [year, setYear] = useState("Popular Games of 2022")
 
     useEffect(() => {
         const popular2022fetch = async () => {
@@ -38,6 +38,34 @@ const Home = () => {
     popular2022fetch();
     }, [])
     
+    const handleKeywordSearch = async (event) => {
+        event.preventDefault();
+        console.log(event)
+
+        try {
+            const response = await keywordSearch(searchInput);
+            if (!response.ok) {
+                throw new Error('something went wrong!');
+            }
+            const items  = await response.json()
+            console.log(items)
+            const games = items.results.map((game) => ({
+                name: game.name,
+                released: game.released,
+                image: game.background_image,
+                id: game.id,
+                metacritic: game.metacritic,
+                saturated_color: game.saturated_color,
+                parentPlatforms: game.parent_platforms,
+                screenshots: game.short_screenshots
+            }))
+            setGameData(games)
+            setYear("")
+        } catch (err) {
+            console.error(err)
+        }
+        setSearchInput("")
+    }
 
     const handleYearSubmit = async (event) => {
         console.log(event)
@@ -62,7 +90,7 @@ const Home = () => {
         } catch (err) {
             console.error(err)
         }
-        setYear(event.substring(0, 4))
+        setYear("Popular Games of " + event.substring(0, 4))
     }
 
     const myFunction = () => {
@@ -75,12 +103,25 @@ const Home = () => {
         <Container className="mx-auto mt-4">
             <Row>
                 <Col>
-                <h1 className="text-center cool-white">Popular Games of {year}</h1>
+                    <Form onSubmit={handleKeywordSearch} className="w-50 game-search-form">
+                            <div class="p-1 bg-light rounded rounded-pill shadow-sm">
+                                <div class="input-group">
+                                    <input type="search"
+                                    name="searchInput"
+                                    value={searchInput}
+                                    onChange={(e) => setSearchInput(e.target.value)}
+                                    placeholder="Search for games" 
+                                    aria-describedby="button-addon1" 
+                                    className="form-control border-0" />
+                                    <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search cool-gradient"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                    </Form>
                 </Col>
-            </Row>
-            <Row>
                 <Col className="d-flex justify-content-center">
-                    <DropdownButton title="Search by Year" onSelect={handleYearSubmit}>
+                    <DropdownButton title="Search Popular Games by Year" onSelect={handleYearSubmit}>
                         <Dropdown.Item eventKey="2022-01-01,2022-12-31">2022</Dropdown.Item>
                         <Dropdown.Item eventKey="2021-01-01,2021-12-31">2021</Dropdown.Item>
                         <Dropdown.Item eventKey="2020-01-01,2020-12-31">2020</Dropdown.Item>
@@ -91,6 +132,14 @@ const Home = () => {
                         <Dropdown.Item eventKey="2015-01-01,2015-12-31">2015</Dropdown.Item>
                     </DropdownButton>
                 </Col>
+            </Row>
+            <Row>
+                <Col>
+                <h1 className="text-center cool-white"> {year}</h1>
+                </Col>
+            </Row>
+            <Row>
+
             </Row>
             <Display20 gameData={gameData} />
         </Container>
