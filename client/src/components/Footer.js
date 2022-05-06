@@ -26,7 +26,7 @@ const Footer = () => {
                     </a>
                 </Col>
                 <Col className="align-items-center text-center">
-                    <p><a href="https://github.com/ryanweiler92/Video-Game-Deal-Finder" target="_blank">
+                    <p><a href="https://github.com/ryanweiler92/Crown-Gaming" target="_blank">
                         <img className="github-img"
                             src={github}
                             alt="github"
