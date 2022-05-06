@@ -7,6 +7,7 @@ import SingleGame from './pages/SingleGame'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 import Profile from './pages/Profile'
+import SearchResults from './pages/SearchResults'
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route exact path="/game" component={SingleGame} />
         <Route exact path ="/profile" component={Profile} />
+        <Route exact path ="/results" comonent={SearchResults} />
       </Switch>
       <Footer />
     </Router>

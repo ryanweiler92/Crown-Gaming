@@ -11,8 +11,6 @@ const Home = () => {
 
     const [year, setYear] = useState("2022")
 
-    const [yearSearchInput, setYearSearchInput] = useState("")
-
     useEffect(() => {
         const popular2022fetch = async () => {
             try {
