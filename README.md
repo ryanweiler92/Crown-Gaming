@@ -1,10 +1,33 @@
-# Travel-Planner
+# Workout-Assistant
+![shield](https://img.shields.io/badge/license-No%20License-green)
 
-## To Launch Just Server side
-From the server folder// npm start  localhost:3001/graphql
+## Links
+* Repository Link: [Crown-Gaming](https://github.com/ryanweiler92/Crown-Gaming)
+* Application Link: [Crown-Gaming]()
+* For any additional questions please reach out to ryanweiler92@gmail.com
 
-## To Launch Just Client Side
-From the client folder// npm start localhost:3000 
+## Description
+The Crown Gaming application provides users the ability to search and save video games to their profile. A user can designate a saved game to their
+favorite games list or their wishlist. The application provides helpful details on every game including screenshots, parent platforms, store availability,
+playtime and more.
 
-## To Launch Server & Client
-From root directoy// npm run develop 
+## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributors](#contributors)
+* [Tests](#tests)
+* [License](#license)
+
+## Installation
+No installation is required. 
+
+## Usage
+![screenshot](./client/src/assets/images/screenshot.jpg)
+
+## Contributors
+
+* [Ryan-Weiler](https://github.com/ryanweiler92)
+
+
+## License
+![shield](https://img.shields.io/badge/license-No%20License-green)
